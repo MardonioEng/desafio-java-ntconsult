@@ -2,6 +2,7 @@ package br.com.ntconsult.rest_api_books.controller;
 
 import br.com.ntconsult.rest_api_books.dto.BookDTO;
 import br.com.ntconsult.rest_api_books.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,14 +42,14 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<BookDTO> createBook(@RequestBody BookDTO bookDTO) {
+    public ResponseEntity<BookDTO> createBook(@RequestBody @Valid BookDTO bookDTO) {
         BookDTO dto = bookService.save(bookDTO);
         URI uriLocation = this.generateHeaderLocation(dto.getId());
         return ResponseEntity.created(uriLocation).body(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BookDTO> updateBook(@PathVariable(value = "id", required = true) Long id, @RequestBody BookDTO bookDTO) {
+    public ResponseEntity<BookDTO> updateBook(@PathVariable(value = "id", required = true) Long id, @RequestBody @Valid BookDTO bookDTO) {
         try {
             BookDTO dto = bookService.update(id, bookDTO);
             return ResponseEntity.ok().body(dto);

@@ -1,14 +1,27 @@
 package br.com.ntconsult.rest_api_books.dto;
 
 import br.com.ntconsult.rest_api_books.model.Book;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
 public class BookDTO {
 
     private Long id;
+
+    @NotBlank(message = "Field required")
+    @Size(min = 2, max = 150, message = "field outside the standard size")
     private String title;
+
+    @NotBlank(message = "Field required")
+    @Size(min = 2, max = 100, message = "field outside the standard size")
     private String author;
+
+    @NotNull(message = "Field required")
+    @PastOrPresent(message = "It cannot be a future date")
     private LocalDate publishDate;
 
     public BookDTO() {
