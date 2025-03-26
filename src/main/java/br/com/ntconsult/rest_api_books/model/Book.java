@@ -2,8 +2,6 @@ package br.com.ntconsult.rest_api_books.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-
 @Entity
 @Table(name = "tb_book")
 public class Book {
@@ -16,8 +14,8 @@ public class Book {
 
     private String author;
 
-    @Column(name = "publish_date")
-    private LocalDate publishDate;
+    @Column(name = "publish_year")
+    private Integer publishYear;
 
     public Book() {
     }
@@ -46,11 +44,11 @@ public class Book {
         this.author = author;
     }
 
-    public LocalDate getPublishDate() {
-        return publishDate;
+    public Integer getPublishYear() {
+        return publishYear;
     }
 
-    public void setPublishDate(LocalDate publishDate) {
-        this.publishDate = publishDate;
+    public void setPublishYear(Integer publishYear) {
+        this.publishYear = publishYear;
     }
 }

@@ -1,12 +1,8 @@
 package br.com.ntconsult.rest_api_books.dto;
 
 import br.com.ntconsult.rest_api_books.model.Book;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
-import java.time.LocalDate;
 
 public class BookDTO {
 
@@ -20,9 +16,10 @@ public class BookDTO {
     @Size(min = 2, max = 100, message = "field outside the standard size")
     private String author;
 
-    @NotNull(message = "Field required")
-    @PastOrPresent(message = "It cannot be a future date")
-    private LocalDate publishDate;
+    @NotNull(message = "The field cannot be null.")
+    @Min(value = 1600, message = "The field cannot have a value lower than 1600.")
+    @Max(value = 2025, message = "The field cannot have a value higher than 2025.")
+    private Integer publishYear;
 
     public BookDTO() {
     }
@@ -31,7 +28,7 @@ public class BookDTO {
         this.id = book.getId();
         this.title = book.getTitle();
         this.author = book.getAuthor();
-        this.publishDate = book.getPublishDate();
+        this.publishYear = book.getPublishYear();
     }
 
     public Long getId() {
@@ -58,11 +55,11 @@ public class BookDTO {
         this.author = author;
     }
 
-    public LocalDate getPublishDate() {
-        return publishDate;
+    public Integer getPublishYear() {
+        return publishYear;
     }
 
-    public void setPublishDate(LocalDate publishDate) {
-        this.publishDate = publishDate;
+    public void setPublishYear(Integer publishYear) {
+        this.publishYear = publishYear;
     }
 }

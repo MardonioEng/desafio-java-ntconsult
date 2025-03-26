@@ -54,7 +54,7 @@ public class BookService {
         Book book = new Book();
         book.setTitle(bookDTO.getTitle());
         book.setAuthor(bookDTO.getAuthor());
-        book.setPublishDate(bookDTO.getPublishDate());
+        book.setPublishYear(bookDTO.getPublishYear());
 
         bookRepository.save(book);
 
@@ -69,7 +69,7 @@ public class BookService {
 
         book.setTitle(bookDTO.getTitle());
         book.setAuthor(bookDTO.getAuthor());
-        book.setPublishDate(bookDTO.getPublishDate());
+        book.setPublishYear(bookDTO.getPublishYear());
 
         bookRepository.save(book);
 

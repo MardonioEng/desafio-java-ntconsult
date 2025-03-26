@@ -15,7 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -56,7 +55,7 @@ public class BookControllerTest {
         bookDTO.setId(1L);
         bookDTO.setTitle("Clean Code");
         bookDTO.setAuthor("Robert C. Martin");
-        bookDTO.setPublishDate(LocalDate.of(2008, 8, 1));
+        bookDTO.setPublishYear(2008);
     }
 
     @Test
@@ -77,7 +76,7 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.content[0].id").value(1))
                 .andExpect(jsonPath("$.content[0].title").value("Clean Code"))
                 .andExpect(jsonPath("$.content[0].author").value("Robert C. Martin"))
-                .andExpect(jsonPath("$.content[0].publishDate").value("2008-08-01"));
+                .andExpect(jsonPath("$.content[0].publishYear").value(2008));
     }
 
     @Test
@@ -89,7 +88,7 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.title").value("Clean Code"))
                 .andExpect(jsonPath("$.author").value("Robert C. Martin"))
-                .andExpect(jsonPath("$.publishDate").value("2008-08-01"));
+                .andExpect(jsonPath("$.publishYear").value(2008));
     }
 
     @Test
@@ -112,7 +111,7 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.title").value("Clean Code"))
                 .andExpect(jsonPath("$.author").value("Robert C. Martin"))
-                .andExpect(jsonPath("$.publishDate").value("2008-08-01"));
+                .andExpect(jsonPath("$.publishYear").value(2008));
     }
 
     @Test
@@ -121,7 +120,7 @@ public class BookControllerTest {
         updatedBook.setId(1L);
         updatedBook.setTitle("Clean Code: Updated");
         updatedBook.setAuthor("Robert C. Martin");
-        updatedBook.setPublishDate(LocalDate.of(2008, 8, 1));
+        updatedBook.setPublishYear(2008);
 
         when(bookService.update(eq(1L), any(BookDTO.class))).thenReturn(updatedBook);
 
@@ -132,7 +131,7 @@ public class BookControllerTest {
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.title").value("Clean Code: Updated"))
                 .andExpect(jsonPath("$.author").value("Robert C. Martin"))
-                .andExpect(jsonPath("$.publishDate").value("2008-08-01"));
+                .andExpect(jsonPath("$.publishYear").value(2008));
     }
 
     @Test

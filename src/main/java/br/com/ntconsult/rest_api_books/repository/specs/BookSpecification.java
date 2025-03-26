@@ -17,7 +17,6 @@ public class BookSpecification {
 
     public static Specification<Book> publishYearEqual(Integer publishYear) {
         return (root, query, cb) ->
-                cb.equal(cb.function("to_char", String.class,
-                        root.get("publishDate"), cb.literal("YYYY")), publishYear.toString());
+                cb.equal(root.get("publishYear"), publishYear);
     }
 }
