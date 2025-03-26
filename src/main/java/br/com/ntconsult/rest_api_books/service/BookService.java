@@ -11,6 +11,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -22,8 +23,6 @@ public class BookService {
     }
 
     public Page<BookDTO> findAll(String title, String author, Integer publishYear, Integer pageNumber, Integer pageSize) {
-        List<Book> books = bookRepository.findAll();
-
         Specification<Book> specs = Specification
                 .where((root, query, criteriaBuilder) -> criteriaBuilder.conjunction());
 
@@ -45,4 +44,8 @@ public class BookService {
         return page.map(BookDTO::new);
     }
 
+    public BookDTO getById(Long id) {
+        Optional<Book> book = bookRepository.findById(id);
+        return book.map(BookDTO::new).orElse(null);
+    }
 }

@@ -4,10 +4,7 @@ import br.com.ntconsult.rest_api_books.dto.BookDTO;
 import br.com.ntconsult.rest_api_books.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/books")
@@ -29,6 +26,15 @@ public class BookController {
     ) {
         Page<BookDTO> page = bookService.findAll(title, author, publishYear, pageNumber, pageSize);
         return ResponseEntity.ok().body(page);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BookDTO> getBookById(@PathVariable(value = "id", required = true) Long id) {
+        BookDTO bookDTO = bookService.getById(id);
+        if (bookDTO == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(bookDTO);
     }
 
 }
