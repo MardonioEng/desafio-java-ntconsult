@@ -5,6 +5,9 @@ import br.com.ntconsult.rest_api_books.service.BookService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/books")
@@ -35,6 +38,21 @@ public class BookController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(bookDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<BookDTO> createBook(@RequestBody BookDTO bookDTO) {
+        BookDTO dto = bookService.save(bookDTO);
+        URI uriLocation = this.generateHeaderLocation(dto.getId());
+        return ResponseEntity.created(uriLocation).body(dto);
+    }
+
+    private URI generateHeaderLocation(Long id) {
+        return ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(id)
+                .toUri();
     }
 
 }
