@@ -55,7 +55,16 @@ public class BookController {
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBook(@PathVariable(value = "id", required = true) Long id) {
+        try {
+            bookService.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     private URI generateHeaderLocation(Long id) {
