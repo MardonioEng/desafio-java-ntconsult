@@ -62,4 +62,20 @@ public class BookService {
 
         return bookDTO;
     }
+
+    public BookDTO update(Long id, BookDTO bookDTO) {
+        Book book = bookRepository.findById(id).
+                orElseThrow(() -> new RuntimeException("Book not found"));
+
+        book.setTitle(bookDTO.getTitle());
+        book.setAuthor(bookDTO.getAuthor());
+        book.setPublishDate(bookDTO.getPublishDate());
+
+        bookRepository.save(book);
+
+        bookDTO.setId(id);
+
+        return bookDTO;
+
+    }
 }

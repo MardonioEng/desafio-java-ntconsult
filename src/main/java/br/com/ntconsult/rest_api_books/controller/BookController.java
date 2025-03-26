@@ -47,6 +47,17 @@ public class BookController {
         return ResponseEntity.created(uriLocation).body(dto);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<BookDTO> updateBook(@PathVariable(value = "id", required = true) Long id, @RequestBody BookDTO bookDTO) {
+        try {
+            BookDTO dto = bookService.update(id, bookDTO);
+            return ResponseEntity.ok().body(dto);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+
+    }
+
     private URI generateHeaderLocation(Long id) {
         return ServletUriComponentsBuilder
                 .fromCurrentRequest()
